@@ -1,0 +1,41 @@
+<!-- Contact Form Section -->
+<section class="contact-form bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Send Us a Message</h2>
+        <form action="/send-message" method="post" class="needs-validation" novalidate>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please enter your name.
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please enter a subject.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+                <div class="invalid-feedback">
+                    Please enter your message.
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </div>
+        </form>
+    </div>
+</section>
