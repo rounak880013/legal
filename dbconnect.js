@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 
 // Now you can access the environment variables
 const db_link = process.env.db_link;
-console.log(db_link);
 
 mongoose
   .connect(db_link, { useNewUrlParser: true, useUnifiedTopology: true })
