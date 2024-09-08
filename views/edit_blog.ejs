@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= blog ? 'Edit Blog' : 'Create New Blog' %></title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1><%= blog ? 'Edit Blog Post' : 'Create a New Blog Post' %></h1>
+        <form id="blogForm" enctype="multipart/form-data">
+
+            <!-- Title Field -->
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" value="<%= blog ? blog.title : '' %>" required>
+            </div>
+
+            <!-- H1 Tag Field -->
+            <div class="form-group">
+                <label for="h1">H1 Tag</label>
+                <input type="text" class="form-control" id="h1" name="h1" value="<%= blog ? blog.h1 : '' %>" required>
+            </div>
+
+            <!-- Content Field -->
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea class="form-control" id="content" name="content" rows="10" required><%= blog ? blog.content : '' %></textarea>
+            </div>
+
+            <!-- Category Dropdown -->
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select class="form-control" id="category" name="category" required>
+                    <option value="">Select Category</option>
+                    <option value="Finance" <%= blog && blog.category === 'Finance' ? 'selected' : '' %>>Finance</option>
+                    <option value="Technology" <%= blog && blog.category === 'Technology' ? 'selected' : '' %>>Technology</option>
+                    <option value="Health" <%= blog && blog.category === 'Health' ? 'selected' : '' %>>Health</option>
+                </select>
+            </div>
+
+            <!-- Sub-Category Dropdown -->
+            <div class="form-group">
+                <label for="subCategory">Sub-Category</label>
+                <select class="form-control" id="subCategory" name="subCategory" required>
+                    <option value="">Select Sub-Category</option>
+                    <option value="Investing" class="sub-finance" <%= blog && blog.subCategory === 'Investing' ? 'selected' : '' %>>Investing</option>
+                    <option value="Banking" class="sub-finance" <%= blog && blog.subCategory === 'Banking' ? 'selected' : '' %>>Banking</option>
+                    <option value="Software" class="sub-technology" <%= blog && blog.subCategory === 'Software' ? 'selected' : '' %>>Software</option>
+                    <option value="Hardware" class="sub-technology" <%= blog && blog.subCategory === 'Hardware' ? 'selected' : '' %>>Hardware</option>
+                    <option value="Nutrition" class="sub-health" <%= blog && blog.subCategory === 'Nutrition' ? 'selected' : '' %>>Nutrition</option>
+                    <option value="Exercise" class="sub-health" <%= blog && blog.subCategory === 'Exercise' ? 'selected' : '' %>>Exercise</option>
+                </select>
+            </div>
+
+            <!-- Meta Title Field -->
+            <div class="form-group">
+                <label for="metaTitle">Meta Title</label>
+                <input type="text" class="form-control" id="metaTitle" name="metaTitle" value="<%= blog ? blog.meta.title : '' %>">
+            </div>
+
+            <!-- Meta Description Field -->
+            <div class="form-group">
+                <label for="metaDescription">Meta Description</label>
+                <textarea class="form-control" id="metaDescription" name="metaDescription" rows="3"><%= blog ? blog.meta.description : '' %></textarea>
+            </div>
+
+            <!-- Meta Keywords Field -->
+            <div class="form-group">
+                <label for="metaKeywords">Meta Keywords</label>
+                <input type="text" class="form-control" id="metaKeywords" name="metaKeywords" value="<%= blog ? blog.meta.keywords : '' %>">
+            </div>
+
+            <!-- Meta Robots Field -->
+            <div class="form-group">
+                <label for="metaRobots">Meta Robots</label>
+                <input type="text" class="form-control" id="metaRobots" name="metaRobots" value="<%= blog ? blog.meta.robots : '' %>" placeholder="e.g., index, follow">
+            </div>
+
+            <!-- Canonical URL Field -->
+            <div class="form-group">
+                <label for="canonicalUrl">Canonical URL</label>
+                <input type="url" class="form-control" id="canonicalUrl" name="canonicalUrl" value="<%= blog ? blog.meta.canonicalUrl : '' %>">
+            </div>
+
+            <!-- Open Graph (OG) Tags Section -->
+            <h4>Open Graph (OG) Tags</h4>
+
+            <!-- OG Title Field -->
+            <div class="form-group">
+                <label for="ogTitle">OG Title</label>
+                <input type="text" class="form-control" id="ogTitle" name="ogTitle" value="<%= blog ? blog.meta.ogTitle : '' %>">
+            </div>
+
+            <!-- OG Description Field -->
+            <div class="form-group">
+                <label for="ogDescription">OG Description</label>
+                <textarea class="form-control" id="ogDescription" name="ogDescription" rows="3"><%= blog ? blog.meta.ogDescription : '' %></textarea>
+            </div>
+
+            <!-- OG Image URL Field -->
+            <div class="form-group">
+                <label for="ogImageUrl">OG Image URL</label>
+                <input type="url" class="form-control" id="ogImageUrl" name="ogImageUrl" value="<%= blog ? blog.meta.ogImageUrl : '' %>">
+            </div>
+
+            <!-- Tags Field -->
+            <div class="form-group">
+                <label for="tags">Tags (Comma Separated)</label>
+                <input type="text" class="form-control" id="tags" name="tags" value="<%= blog ? blog.tags.join(', ') : '' %>">
+            </div>
+
+            <!-- Image Upload Field -->
+            <div class="form-group">
+                <label for="imageUrl">Upload Image</label>
+                <input type="file" class="form-control-file" id="imageUrl" name="imageUrl">
+                <% if (blog && blog.imageUrl) { %>
+                    <p>Current Image: <a href="<%= blog.imageUrl %>" target="_blank">View Image</a></p>
+                <% } %>
+            </div>
+
+            <!-- Publish Field -->
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="published" name="published" <%= blog && blog.published ? 'checked' : '' %>>
+                <label class="form-check-label" for="published">Publish</label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary"><%= blog ? 'Update Blog' : 'Create Blog' %></button>
+        </form>
+    </div>
+
+    <!-- jQuery to handle category and sub-category logic -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to update sub-category visibility based on the selected category
+            function updateSubCategory() {
+                const categorySelect = document.getElementById('category');
+                const subCategoryOptions = document.querySelectorAll('#subCategory option');
+                const selectedCategory = categorySelect.value.toLowerCase();
+
+                subCategoryOptions.forEach(option => {
+                    if (option.classList.contains('sub-' + selectedCategory)) {
+                        option.style.display = 'block';
+                    } else {
+                        option.style.display = 'none';
+                    }
+                });
+            }
+
+            // Initialize sub-category visibility when the page loads
+            updateSubCategory();
+
+            // Update sub-categories when category changes
+            const categorySelect = document.getElementById('category');
+            categorySelect.addEventListener('change', updateSubCategory);
+
+            // Handle form submission
+            const form = document.getElementById('blogForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent default form submission
+
+                // Create FormData object to collect form data
+                const formData = new FormData(form);
+
+                // Determine the appropriate URL
+                const url = "<%= blog ? `/blog/${blog._id}/edit` : '/blog/new' %>";
+
+                // Make Axios POST request
+                axios.post(url, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(function(response) {
+                    alert('Blog successfully submitted!');
+                    // You can redirect to another page or perform other actions
+                })
+                .catch(function(error) {
+                    console.error('Error submitting blog:', error);
+                    alert('There was an error submitting the blog.');
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            function updateSubCategory() {
+                var selectedCategory = $('#category').val();
+                $('#subCategory option').hide();
+                $('#subCategory option').each(function() {
+                    if ($(this).hasClass('sub-' + selectedCategory.toLowerCase())) {
+                        $(this).show();
+                    }
+                });
+            }
+
+            // Initialize sub-category visibility
+            updateSubCategory();
+
+            // Update sub-categories when category changes
+            $('#category').change(updateSubCategory);
+        });
+    </script>
+</body>
+</html>
