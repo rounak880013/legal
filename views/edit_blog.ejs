@@ -138,26 +138,26 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Function to update sub-category visibility based on the selected category
-            function updateSubCategory() {
-                const categorySelect = document.getElementById('category');
-                const subCategoryOptions = document.querySelectorAll('#subCategory option');
-                const selectedCategory = categorySelect.value.toLowerCase();
+            // function updateSubCategory() {
+            //     const categorySelect = document.getElementById('category');
+            //     const subCategoryOptions = document.querySelectorAll('#subCategory option');
+            //     const selectedCategory = categorySelect.value.toLowerCase();
 
-                subCategoryOptions.forEach(option => {
-                    if (option.classList.contains('sub-' + selectedCategory)) {
-                        option.style.display = 'block';
-                    } else {
-                        option.style.display = 'none';
-                    }
-                });
-            }
+            //     subCategoryOptions.forEach(option => {
+            //         if (option.classList.contains('sub-' + selectedCategory)) {
+            //             option.style.display = 'block';
+            //         } else {
+            //             option.style.display = 'none';
+            //         }
+            //     });
+            // }
 
-            // Initialize sub-category visibility when the page loads
-            updateSubCategory();
+            // // Initialize sub-category visibility when the page loads
+            // updateSubCategory();
 
-            // Update sub-categories when category changes
-            const categorySelect = document.getElementById('category');
-            categorySelect.addEventListener('change', updateSubCategory);
+            // // Update sub-categories when category changes
+            // const categorySelect = document.getElementById('category');
+            // categorySelect.addEventListener('change', updateSubCategory);
 
             // Handle form submission
             const form = document.getElementById('blogForm');
@@ -187,7 +187,7 @@
             });
         });
     </script>
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             function updateSubCategory() {
                 var selectedCategory = $('#category').val();
@@ -204,7 +204,7 @@
 
             // Update sub-categories when category changes
             $('#category').change(updateSubCategory);
-        });
-    </script>
+        }); -->
+    <!-- </script> -->
 </body>
 </html>
