@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="<%= blogPost.meta.title %>">
+    <meta name="description" content="<%= blogPost.meta.description %>">
+    <meta name="keywords" content="<%= blogPost.meta.keywords %>">
+    <meta name="robots" content="<%= blogPost.meta.robots %>">
+    <link rel="canonical" href="<%= blogPost.meta.canonicalUrl %>">
+    <meta property="og:title" content="<%= blogPost.meta.ogTitle %>">
+    <meta property="og:description" content="<%= blogPost.meta.ogDescription %>">
+    <meta property="og:image" content="<%= blogPost.meta.ogImageUrl %>">
+    <title><%= blogPost.title %></title>
+    <style>
+        /* Adjust the header margin to account for fixed navbar */
+        .contact-header {
+            margin-top: 80px; /* Adjust this based on the height of your navbar */
+            /* background-size: cover;
+            background-position: center; */
+            /* color: #fff; */
+            /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); */
+            /* padding: 100px 0; */
+        }
+
+        /* Styling the Contact Information and Office Hours */
+        .contact-info, .contact-form, .map-section {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info h2, .contact-form h2, .map-section h2 {
+            font-size: 1.75rem;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Styling the Contact Form */
+        .contact-form .form-control {
+            border-radius: 5px;
+            box-shadow: none;
+            border: 1px solid #ced4da;
+        }
+
+        .contact-form .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .contact-form .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        /* Styling the Map Section */
+        .map-section .embed-responsive {
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <%- include('partials/navbar') %>
+
+    <section class="contact-header"></section>
+    <%- blogPost.content %>
+
+    <!-- Footer Section -->
+    <%- include('partials/footer') %>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

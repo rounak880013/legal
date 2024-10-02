@@ -60,26 +60,30 @@ const save_blogs = async (req, res) => {
 };
 
 const get_blogs = async (req, res) => {
-    // Extract the search string from query parameters
-    const search_string = req.query.search_string || req.params.search_string || req.body.search_string;
-  
-    try {
-      // Find blog posts that match the search string (e.g., search by title or content)
-      const blogPosts = await Blog.find({
-        "search_string":search_string
-        });
-  
-      if (blogPosts.length === 0) {
-        return res.status(404).send('No blog posts found.');
-      }
-  console.log(blogPosts);
-      // Render the blog page and pass the blog data to the view
-      res.render('blog_page', {blogPosts });
-    } catch (error) {
-      console.error('Error fetching blog post:', error);
-      res.status(500).send('Internal Server Error.');
+  // Extract the search string from query parameters or request body
+  const search_string = req.query.search_string || req.params.search_string || req.body.search_string;
+  console.log("Search string:", search_string);
+
+  try {
+    // Find a single blog post that matches the search string
+    const blogPost = await Blog.findOne({
+      "search_string": search_string
+    });
+
+    // If no blog post is found, return a 404 error
+    if (!blogPost) {
+      return res.status(404).send('No blog post found.');
     }
-  };
+
+    console.log("Blog post found:", blogPost);
+
+    // Render the blog page and pass the blog data to the view
+    res.render('blog_page', { blogPost });
+  } catch (error) {
+    console.error('Error fetching blog post:', error);
+    res.status(500).send('Internal Server Error.');
+  }
+};
 
 module.exports = {
   save_blogs,

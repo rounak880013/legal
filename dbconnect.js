@@ -5,10 +5,11 @@ const mongoose = require("mongoose");
 const db_link = process.env.db_link;
 
 mongoose
-  .connect(db_link, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(db_link)
   .then(() => {
     console.log("Database connected successfully.");
   })
   .catch((err) => {
+    console.log("hello");
     console.error("Database connection error:", err);
   });

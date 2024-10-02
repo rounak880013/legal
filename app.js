@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const connect = require("./dbconnect");
 const blogRouter = require("./router/blogRouter")
+const homePageRouter = require("./router/homePageRouter")
 const { SitemapStream, streamToPromise } = require('sitemap');
 const { Readable } = require('stream');
 const fs = require('fs');
@@ -35,6 +36,8 @@ app.get('/contact-us',(req,res)=>{
     res.render('contact_us');
 })
 
+
+app.use('/practice-area',homePageRouter)
 
 app.listen(port, function () {
     // generateSitemap()
