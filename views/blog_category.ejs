@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Home page</title>
+    <style>
+        /* Adjust the header margin to account for fixed navbar */
+        .contact-header {
+            margin-top: 80px; /* Adjust this based on the height of your navbar */
+            /* background-size: cover;
+            background-position: center; */
+            /* color: #fff; */
+            /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); */
+            /* padding: 100px 0; */
+        }
+        .card:hover {
+            transform: scale(1.05);
+            transition: transform 0.2s ease-in-out;
+        }
+    </style>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <%- include('partials/navbar') %>
+
+    <section class="contact-header"></section>
+
+    <div class="container my-5">
+        <div class="row">
+          <% blogPosts.forEach(function(blog) { %>
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100 shadow-sm border-0">
+                <div class="card-img-top overflow-hidden">
+                  <img src="<%= blog.imageUrl %>" class="img-fluid" alt="<%= blog.title %>" style="height: 200px; object-fit: cover;">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title"><%= blog.title %></h5>
+                  <p class="card-text text-muted small">Published on <%= blog.created_at.toDateString() %></p>
+                  <p class="card-text"><%= blog.excerpt %></p>
+                  <a href="/blog/<%= blog.slug %>" class="btn btn-outline-primary btn-sm">Read More</a>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+      
+
+    <!-- Footer Section -->
+    <%- include('partials/footer') %>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

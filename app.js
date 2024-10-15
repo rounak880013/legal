@@ -1,5 +1,4 @@
 const express = require("express");
-const multer = require("multer");
 const connect = require("./dbconnect");
 const blogRouter = require("./router/blogRouter")
 const homePageRouter = require("./router/homePageRouter")
@@ -12,9 +11,7 @@ const path = require('path');
 // const metadata = require('./metadata');
 // const prerender = require('prerender-node');
 const app = express();
-const upload = multer();
 
-app.use(upload.none());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
@@ -26,7 +23,7 @@ let port = process.env.PORT || 3000;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-app.use('/blog', blogRouter);
+app.use('/blogs', blogRouter);
 
 app.get('/',(req,res)=>{
     res.render('home');
@@ -37,7 +34,13 @@ app.get('/contact-us',(req,res)=>{
 })
 
 
+app.get('/career',(req,res)=>{
+    res.render('career', { blog: null });
+});
+
 app.use('/practice-area',homePageRouter)
+
+app.use('/api',homePageRouter)
 
 app.listen(port, function () {
     // generateSitemap()

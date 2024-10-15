@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Home page</title>
+    <style>
+        /* Adjust the header margin to account for fixed navbar */
+        .contact-header {
+            margin-top: 80px; /* Adjust this based on the height of your navbar */
+            /* background-size: cover;
+            background-position: center; */
+            /* color: #fff; */
+            /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); */
+            /* padding: 100px 0; */
+        }
+    </style>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <%- include('partials/navbar') %>
+
+    <section class="contact-header"></section>
+
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Blog Categories</h2>
+        <div class="row">
+          <% categories.forEach(function(category) { %>
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card">
+                <img src="<%= category.imageUrl %>" class="card-img-top" alt="<%= category.name %>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= category.name %></h5>
+                  <p class="card-text"><%= category.description %></p>
+                  <a href="/blogs/<%= category.slug %>" class="btn btn-primary">View Blogs</a>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+
+    <!-- Footer Section -->
+    <%- include('partials/footer') %>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
