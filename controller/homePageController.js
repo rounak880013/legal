@@ -1,5 +1,6 @@
 // app.js or server.js
 const nodemailer = require('nodemailer');
+const path = require('path')
 const fs = require('fs');
 
 // Function to submit job application
@@ -7,7 +8,6 @@ const submit_job_application = async (req, res) => {
   try {
     const { fullName, email, position } = req.body;
     const resume = req.file;
-
     // Validate required fields
     if (!fullName || !email || !position || !resume) {
       return res.status(400).json({ message: 'All fields are required.' });
@@ -28,7 +28,7 @@ const submit_job_application = async (req, res) => {
     await transporter.verify();
 
     // Read the resume file
-    const resumePath = path.join(__dirname, resume.path);
+    const resumePath = path.join(__dirname, '..', resume.path);
     const resumeContent = fs.readFileSync(resumePath);
 
     // Set up email data

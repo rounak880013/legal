@@ -13,69 +13,72 @@
     <meta property="og:image" content="<%= blogPost.meta.ogImageUrl %>">
     <title><%= blogPost.title %></title>
     <style>
-        /* Adjust the header margin to account for fixed navbar */
-        .contact-header {
-            margin-top: 80px; /* Adjust this based on the height of your navbar */
-            /* background-size: cover;
-            background-position: center; */
-            /* color: #fff; */
-            /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); */
-            /* padding: 100px 0; */
-        }
-
-        /* Styling the Contact Information and Office Hours */
-        .contact-info, .contact-form, .map-section {
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .contact-info h2, .contact-form h2, .map-section h2 {
-            font-size: 1.75rem;
-            color: #333;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        /* Styling the Contact Form */
-        .contact-form .form-control {
-            border-radius: 5px;
-            box-shadow: none;
-            border: 1px solid #ced4da;
-        }
-
-        .contact-form .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-            border-radius: 5px;
-            padding: 10px 20px;
+        /* Container for the main blog content */
+        .blog-content {
+            font-family: Arial, sans-serif;
             font-size: 1rem;
-            transition: background-color 0.3s, border-color 0.3s;
+            line-height: 1.6;
+            color: #333;
+            margin-left: 10% ;
+            margin-right: 10% ;
+            margin-top: 10px ;
+            margin-bottom: 10px ;
+            padding: 10%;
+            max-width: 80%; /* Sets a maximum width for better readability */
+            background-color: #ffffff; /* Background for better contrast */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
+            border-radius: 8px;
         }
-
-        .contact-form .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
+    
+        /* Paragraph spacing */
+        .blog-content p {
+            margin: 1.5em 0; /* Space between paragraphs */
         }
-
-        /* Styling the Map Section */
-        .map-section .embed-responsive {
-            border-radius: 5px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    
+        /* Heading styling */
+        .blog-content h1, .blog-content h2, .blog-content h3 {
+            color: #000000;
+            font-weight: bold;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            line-height: 1.2;
+        }
+    
+        /* Bold text styling */
+        .blog-content b, .blog-content strong {
+            color: #333;
+            font-weight: 700;
+        }
+    
+        /* Line breaks */
+        .blog-content br {
+            margin-bottom: 1rem;
+            display: block;
+            content: "";
+        }
+    
+        /* Blockquote styling */
+        .blog-content blockquote {
+            margin: 1.5em 0;
+            padding: 1em;
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            font-style: italic;
+            color: #555;
         }
     </style>
+    
+    
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <%- include('partials/navbar') %>
 
     <section class="contact-header"></section>
-    <%- blogPost.content %>
+    <div class="blog-content">
+        <h1><%- blogPost.h1 %></h1>
+       <%- blogPost.content %>
+    </div>
 
     <!-- Footer Section -->
     <%- include('partials/footer') %>

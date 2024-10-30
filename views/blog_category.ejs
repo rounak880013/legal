@@ -31,14 +31,14 @@
           <% blogPosts.forEach(function(blog) { %>
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card h-100 shadow-sm border-0">
-                <div class="card-img-top overflow-hidden">
+                <!-- <div class="card-img-top overflow-hidden">
                   <img src="<%= blog.imageUrl %>" class="img-fluid" alt="<%= blog.title %>" style="height: 200px; object-fit: cover;">
-                </div>
+                </div> -->
                 <div class="card-body">
                   <h5 class="card-title"><%= blog.title %></h5>
-                  <p class="card-text text-muted small">Published on <%= blog.created_at.toDateString() %></p>
+                  <p class="card-text text-muted small">Published on <%= blog.createdAt.toDateString() %></p>
                   <p class="card-text"><%= blog.excerpt %></p>
-                  <a href="/blog/<%= blog.slug %>" class="btn btn-outline-primary btn-sm">Read More</a>
+                  <a href="/blogs/<%= blog.category %>/<%= blog.search_string %>" class="btn btn-outline-primary btn-sm">Read More</a>
                 </div>
               </div>
             </div>

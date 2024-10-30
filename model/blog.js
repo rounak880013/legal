@@ -20,10 +20,6 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  sub_category: {
-    type: String,
-    required: true,
-  },
   tags: {
     type: [String], // Array of strings
     default: [], // Default is an empty array

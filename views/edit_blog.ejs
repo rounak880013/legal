@@ -35,15 +35,17 @@
             <div class="form-group">
                 <label for="category">Category</label>
                 <select class="form-control" id="category" name="category" required>
-                    <option value="">Select Category</option>
-                    <option value="Finance" <%= blog && blog.category === 'Finance' ? 'selected' : '' %>>Finance</option>
-                    <option value="Technology" <%= blog && blog.category === 'Technology' ? 'selected' : '' %>>Technology</option>
-                    <option value="Health" <%= blog && blog.category === 'Health' ? 'selected' : '' %>>Health</option>
+                  <option value="">Select Category</option>
+                  <% category.forEach(cat => { %>
+                    <option value="<%= cat.slug %>" <%= blog && blog.category === cat.slug ? 'selected' : '' %>>
+                      <%= cat.name %>
+                    </option>
+                  <% }); %>
                 </select>
             </div>
 
             <!-- Sub-Category Dropdown -->
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="subCategory">Sub-Category</label>
                 <select class="form-control" id="subCategory" name="subCategory" required>
                     <option value="">Select Sub-Category</option>
@@ -54,7 +56,7 @@
                     <option value="Nutrition" class="sub-health" <%= blog && blog.subCategory === 'Nutrition' ? 'selected' : '' %>>Nutrition</option>
                     <option value="Exercise" class="sub-health" <%= blog && blog.subCategory === 'Exercise' ? 'selected' : '' %>>Exercise</option>
                 </select>
-            </div>
+            </div> -->
 
             <!-- Meta Title Field -->
             <div class="form-group">
@@ -168,7 +170,7 @@
                 const formData = new FormData(form);
 
                 // Determine the appropriate URL
-                const url = "<%= blog ? `/blog/${blog._id}/edit` : '/blog/new' %>";
+                const url = "<%= blog ? `/blog/${blog._id}/edit` : '/blogs/new' %>";
 
                 // Make Axios POST request
                 axios.post(url, formData, {
