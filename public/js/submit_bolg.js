@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault(); // Prevent default form submission
 
         const formData = new FormData(form); // Create FormData object from the form
-        console.log(formData);
         try {
             const response = await fetch(form.action, {
                 method: 'POST',

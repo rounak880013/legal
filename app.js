@@ -2,6 +2,7 @@ const express = require("express");
 const connect = require("./dbconnect");
 const blogRouter = require("./router/blogRouter")
 const homePageRouter = require("./router/homePageRouter")
+const practiceArea =require("./constants/practiceArea")
 const { SitemapStream, streamToPromise } = require('sitemap');
 const { Readable } = require('stream');
 const fs = require('fs');
@@ -26,7 +27,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.use('/blogs', blogRouter);
 
 app.get('/',(req,res)=>{
-    res.render('home');
+    res.render('home',{
+      "homePagePracticeArea":practiceArea.homePagePracticeArea
+    });
 })
 
 app.get('/contact-us',(req,res)=>{

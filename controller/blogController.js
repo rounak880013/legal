@@ -20,7 +20,6 @@ const save_blogs = async (req, res) => {
       imageUrl,
     } = req.body;
     let search_string="how-to-in-corporate-buisness-in-india";
-    console.log(req.body);
     // Create a new blog instance
     const newBlog = new Blog({
       title,
@@ -61,6 +60,67 @@ const save_blogs = async (req, res) => {
   }
 };
 
+const update_blogs = async (req, res) => {
+  try {
+    const {
+      title,
+      h1,
+      content,
+      category,
+      subCategory,
+      metaTitle,
+      metaDescription,
+      metaKeywords,
+      metaRobots,
+      canonicalUrl,
+      ogTitle,
+      ogDescription,
+      ogImageUrl,
+      tags,
+      imageUrl,
+      search_string
+    } = req.body;
+    const update_id=req.query.id;
+    // Create a new blog instance
+    const newBlog = {
+      title,
+      h1,
+      content,
+      category,
+      search_string:search_string,
+      sub_category: subCategory, // Note the naming
+      tags: tags.split(",").map((tag) => tag.trim()), // Split the tags by comma and trim them
+      meta: {
+        title: metaTitle,
+        description: metaDescription,
+        keywords: metaKeywords,
+        robots: metaRobots,
+        canonicalUrl,
+        ogTitle,
+        ogDescription,
+        ogImageUrl,
+      },
+      imageUrl,
+      published: req.body.published === "on", // Handle checkbox value
+    };
+
+    // Save the new blog post
+    const savedBlog = await Blog.findByIdAndUpdate(update_id,newBlog);
+
+    // Respond back
+    res.status(201).json({
+      message: "Blog created successfully!",
+      blog: savedBlog,
+    });
+  } catch (error) {
+    console.error("Error saving blog:", error);
+    res.status(500).json({
+      message: "Failed to create blog",
+      error,
+    });
+  }
+};
+
 const get_blogs = async (req, res) => {
   // Extract the search string from query parameters or request body
   const search_string = req.query.search_string || req.params.search_string || req.body.search_string;
@@ -68,7 +128,8 @@ const get_blogs = async (req, res) => {
   try {
     // Find a single blog post that matches the search string
     const blogPost = await Blog.findOne({
-      "search_string": search_string
+      "search_string": search_string,
+      "published": true
     });
 
     // If no blog post is found, return a 404 error
@@ -76,7 +137,6 @@ const get_blogs = async (req, res) => {
       return res.status(404).send('No blog post found.');
     }
 
-    console.log("Blog post found:", blogPost);
 
     // Render the blog page and pass the blog data to the view
     res.render('blog_page', { blogPost });
@@ -177,11 +237,9 @@ const get_category_blogs = async (req, res) => {
 
   try {
     const category = req.query.category || req.params.category || req.body.category;
-    console.log(category)
-    const blogPosts = await Blog.find({ category: category })
+    const blogPosts = await Blog.find({ category: category , "published": true})
     .sort({ created_at: -1 }) // Sort by created_at in descending order (latest first)
     .limit(100);
-    console.log(blogPosts)
     
     res.render('blog_category',{
       categoryName: category,
@@ -195,6 +253,7 @@ const get_category_blogs = async (req, res) => {
 
 module.exports = {
   save_blogs,
+  update_blogs,
   get_blogs,
   blog_home_page,
   get_category_blogs

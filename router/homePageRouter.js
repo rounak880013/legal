@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require("multer");
 // const blogController = require('../controller/home')
+const practiceArea =require("../constants/practiceArea")
 const homePageController = require('../controller/homePageController');
 const router = express.Router();
 const path = require('path');
@@ -35,7 +36,9 @@ const upload = multer({
 router.post('/apply',upload.single('resume'),homePageController.submit_job_application);
 
 router.get('/',(req,res)=>{
-    res.render('practiceArea/practice_homepage');
+    res.render('practiceArea/practice_homepage',{
+      "practiceArea":practiceArea.practiceArea
+    });
 })
 
 router.get('/:area_name', homePageController.get_practice_area_data);
